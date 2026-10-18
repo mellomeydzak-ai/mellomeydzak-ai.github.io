@@ -1,0 +1,146 @@
+<!doctype html>
+<!-- Source of the downloadable CV. Edit the text here, then run `npm run cv`
+     to regenerate public/Mellomey-Dzaklidzie-CV.pdf (needs Google Chrome). -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Mellomey Dzaklidzie · CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A4; margin: 14mm 0 12mm; }
+  @page :first { margin-top: 0; }
+  :root { --ink: #0d1f1c; --muted: #4f5f5b; --g900: #0a221e; --g700: #1b4d45; --g100: #dcebe6; --gold: #c8a45a; --line: #d5e2dd; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, Helvetica, Arial, sans-serif; color: var(--ink); font-size: 9.6pt; line-height: 1.45; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; padding: 0 16mm; }
+
+  header { background: var(--g900); color: #fff; margin: 0 -16mm 7mm; padding: 11mm 16mm 9mm; position: relative; }
+  header::after { content: ''; position: absolute; left: 16mm; bottom: 0; width: 22mm; height: 1.4mm; background: var(--gold); }
+  h1 { font-family: 'Inter Tight', 'Inter', sans-serif; font-size: 25pt; letter-spacing: -0.03em; line-height: 1.05; }
+  .role { color: #bcd9d1; font-size: 10.5pt; margin-top: 2mm; }
+  .contact { display: flex; flex-wrap: wrap; gap: 1.5mm 6mm; margin-top: 4.5mm; font-size: 8.8pt; color: #e4f1ed; }
+  .contact a { color: inherit; text-decoration: none; }
+  .contact b { color: var(--gold); font-weight: 600; margin-right: 1.5mm; }
+
+  h2 {
+    font-family: 'Inter Tight', 'Inter', sans-serif; font-size: 10.5pt; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--g700); margin: 6mm 0 2.5mm; padding-bottom: 1.5mm; border-bottom: 0.4mm solid var(--line);
+  }
+  h2:first-of-type { margin-top: 0; }
+  p { color: var(--ink); }
+  .highlights { display: flex; gap: 3mm; margin-top: 3mm; }
+  .highlights div { flex: 1; background: var(--g100); border-radius: 2mm; padding: 2.5mm 3mm; }
+  .highlights b { display: block; font-family: 'Inter Tight', sans-serif; font-size: 14pt; color: var(--g700); line-height: 1.1; }
+  .highlights span { font-size: 8.2pt; color: var(--muted); }
+  .focus { color: var(--muted); }
+
+  .job { margin-bottom: 4mm; break-inside: avoid; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .job h3 { font-size: 10.4pt; font-weight: 700; }
+  .job .dates { font-size: 8.8pt; color: var(--muted); white-space: nowrap; }
+  .job .company { font-weight: 600; color: var(--g700); font-size: 9.4pt; margin: 0.3mm 0 1.2mm; }
+  ul { padding-left: 4mm; }
+  li { margin-bottom: 0.8mm; }
+  li::marker { color: var(--gold); }
+
+  .kv p { margin-bottom: 1.6mm; }
+  .kv b { color: var(--g700); }
+  .edu { display: flex; justify-content: space-between; gap: 4mm; margin-bottom: 1.2mm; break-inside: avoid; }
+  .edu span { color: var(--muted); white-space: nowrap; }
+  .break { break-before: page; padding-top: 12mm; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Mellomey Dzaklidzie</h1>
+    <p class="role">WordPress Developer · Digital Project Manager · UI/UX &amp; Graphic Designer</p>
+    <div class="contact">
+      <span><b>Email</b><a href="mailto:mellomeydzak@gmail.com">mellomeydzak@gmail.com</a></span>
+      <span><b>Portfolio</b><a href="https://mellomeydzak-ai.github.io/">mellomeydzak-ai.github.io</a></span>
+      <span><b>LinkedIn</b><a href="https://www.linkedin.com/in/mellomey-dzak-0a8256280">linkedin.com/in/mellomey-dzak-0a8256280</a></span>
+    </div>
+  </header>
+
+  <h2>Profile</h2>
+  <p>Creative and technically minded digital professional working across AI-enabled workflows, web development, digital marketing, graphic design, UI/UX, SEO and project delivery. Experienced in using AI agents and generative tools as working systems, not just chat tools, for development, research, content, creative production, strategy and workflow improvement. Combines strong visual judgement, technical capability and systems thinking with human-led QA for accuracy, brand alignment and production quality.</p>
+  <div class="highlights">
+    <div><b>6</b><span>industrial websites managed</span></div>
+    <div><b>Up to 70%</b><span>higher click-through rate achieved</span></div>
+    <div><b>AI-first</b><span>workflows and agentic tools</span></div>
+  </div>
+
+  <h2>Core Focus</h2>
+  <p class="focus">AI Workflow Design • Digital Marketing &amp; Content • Web Development &amp; UX • Visual Design • SEO Support • Research • Project Management</p>
+
+  <h2>Experience</h2>
+  <div class="job">
+    <div class="job-head"><h3>WordPress Developer | Digital Project Manager | UI/UX Designer</h3><span class="dates">Aug 2025 – Present</span></div>
+    <p class="company">Bezaleel Media</p>
+    <ul>
+      <li>Manage six industrial business websites across performance, content, functionality, security, UX and ongoing technical improvement.</li>
+      <li>Lead digital projects from requirements and planning through development, QA, stakeholder review and delivery.</li>
+      <li>Use Claude Code and other AI agents for development, troubleshooting, UI implementation, rapid prototyping and reusable project workflows, with human review before deployment.</li>
+      <li>Support SEO through website hierarchy, crawl accessibility, metadata management, content structure and technical improvements.</li>
+      <li>Translate business and marketing requirements into practical digital solutions, lead-generation journeys and improved team workflows.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-head"><h3>Graphic Designer &amp; Paid Ads Specialist</h3><span class="dates">Jan 2025 – May 2025</span></div>
+    <p class="company">Lonja Beauty Studio</p>
+    <ul>
+      <li>Created social and paid-campaign content across Meta and TikTok, combining brand design with performance-led creative decisions.</li>
+      <li>Used AI-assisted research and ideation to support messaging, campaign concepts and content development while maintaining brand consistency.</li>
+      <li>Monitored campaign performance and contributed to results of up to 70% higher click-through rates through creative optimisation and campaign management.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-head"><h3>WordPress Developer – Freelance</h3><span class="dates">Feb 2025</span></div>
+    <p class="company">Kayailees Mobile Florist</p>
+    <ul>
+      <li>Designed and developed a responsive WordPress website aligned with the client's brand and business requirements.</li>
+      <li>Created a mobile-first interface with clear navigation, product listings and booking functionality.</li>
+      <li>Structured content and user journeys to clearly communicate services and support customer enquiries.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-head"><h3>Graphic Designer | WordPress Developer | Business Analyst</h3><span class="dates">Nov 2024 – Mar 2025</span></div>
+    <p class="company">Paul-R Trade and Technologies</p>
+    <ul>
+      <li>Developed and launched a complete e-commerce website using WordPress and WooCommerce, including secure payment functionality.</li>
+      <li>Translated business requirements into website functionality, content structures and digital customer journeys.</li>
+      <li>Developed brand assets and completed theme/plugin customisation, SEO improvements and performance optimisation.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-head"><h3>Graphic Designer</h3><span class="dates">Jul 2023 – Oct 2024</span></div>
+    <p class="company">Jona &amp; Leo Designs</p>
+    <ul>
+      <li>Developed campaign graphics, layouts, UI assets and promotional materials across multiple brands.</li>
+      <li>Translated marketing objectives and brand guidelines into clear visual communication using typography, hierarchy, colour and illustration.</li>
+      <li>Collaborated with marketing teams and managed multiple creative deliverables across changing briefs and deadlines.</li>
+    </ul>
+  </div>
+
+  <h2>Selected AI &amp; Digital Workflows</h2>
+  <div class="kv">
+    <p><b>AI-assisted development:</b> Claude Code and coding agents for planning, building, troubleshooting and refining websites/apps with persistent project context and reusable instructions.</p>
+    <p><b>Research &amp; strategy:</b> AI-supported competitor analysis, market research, proposals, website planning and campaign strategy, with human-led verification and refinement.</p>
+    <p><b>Generative creative:</b> AI image and video tools for ideation, storyboarding, concept development and short-form content workflows.</p>
+    <p><b>Reusable systems &amp; automation:</b> Prompt libraries, markdown instruction files, GitHub, Notion, Airtable, Make, Zapier and n8n for repeatable digital workflows that can be reused across projects.</p>
+  </div>
+
+  <h2>Tools &amp; Skills</h2>
+  <div class="kv">
+    <p><b>AI &amp; Agentic:</b> Claude, Claude Code, ChatGPT, Gemini, AI coding agents, structured prompting, context design, AI-assisted research and content development</p>
+    <p><b>Creative:</b> ImageFX, Flow, Veo, Kling AI, Higgsfield, Adobe Photoshop, Illustrator, InDesign, Figma, Canva</p>
+    <p><b>Web &amp; Data:</b> WordPress, WooCommerce, HTML, CSS, JavaScript, React.js, Preact, MySQL, Supabase/PostgreSQL, responsive design, website performance and security</p>
+    <p><b>Marketing &amp; Systems:</b> Meta Ads, TikTok Ads, SEO support, campaign reporting, GitHub, Notion, Airtable, Make, Zapier, n8n, QA and workflow design</p>
+  </div>
+
+  <h2>Education</h2>
+  <div class="edu"><p><b>B.Sc. Honours in Information Technology</b></p></div>
+  <div class="edu"><p><b>B.Sc. Information Technology</b> | Richfield Graduate Institute of Technology</p><span>2021 – 2024</span></div>
+</div>
+</body>
+</html>

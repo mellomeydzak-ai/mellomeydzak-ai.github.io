@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { profile, stats, skills, projects, logos } from './data.js';
+import { profile, heroStat, stats, experience, skills, projects, logos } from './data.js';
 
 /* ---------- small inline icons (no icon library needed) ---------- */
 const paths = {
@@ -42,6 +42,15 @@ const paths = {
     </>
   ),
   arrow: <path d="M7 17 17 7M8 7h9v9" />,
+  chart: <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />,
+  flow: (
+    <>
+      <rect x="3" y="3" width="6" height="6" rx="1.5" /><rect x="15" y="15" width="6" height="6" rx="1.5" />
+      <path d="M9 6h5a3 3 0 0 1 3 3v6" />
+    </>
+  ),
+  download: <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />,
+  bolt: <path d="M13 2 4 14h7l-1 8 9-12h-7Z" />,
   cap: (
     <>
       <path d="M2 9.5 12 5l10 4.5L12 14Z" />
@@ -99,6 +108,7 @@ function Nav() {
       </a>
       <nav className={open ? 'links open' : 'links'}>
         <a href="#about" onClick={close}>About</a>
+        <a href="#journey" onClick={close}>Journey</a>
         <a href="#work" onClick={close}>Work</a>
         <a href="#uiux" onClick={close}>UI/UX</a>
         <a href="#services" onClick={close}>Services</a>
@@ -131,10 +141,10 @@ function Hero() {
           <p className="hello reveal">Hey, I'm {profile.firstName}.</p>
           <h1 className="reveal">{profile.heroTitle}</h1>
         </div>
-        {stats[0] && (
+        {heroStat && (
           <div className="stat-card reveal">
-            <small>{stats[0].label}</small>
-            <b>{stats[0].value}</b>
+            <small>{heroStat.label}</small>
+            <b>{heroStat.value}</b>
           </div>
         )}
       </div>
@@ -143,7 +153,7 @@ function Hero() {
 }
 
 function About() {
-  const tools = [...new Set(skills.flatMap((s) => s.tags))].slice(0, 6);
+  const tools = skills.map((s) => s.tags[0]); // one headline tool per skill
   return (
     <section id="about" className="section about">
       <div className="about-head">
@@ -153,7 +163,7 @@ function About() {
           <p className="lead reveal">{profile.intro}</p>
           <div className="reveal actions">
             <PillButton href="#contact">Get In Touch</PillButton>
-            {profile.cv && <a href={profile.cv} className="text-link" download>Download CV</a>}
+            {profile.cv && <a href={profile.cv} className="text-link" download>Download my CV</a>}
           </div>
         </div>
       </div>
@@ -216,6 +226,88 @@ function Phone({ src, label }) {
     <div className="phone">
       <div className="phone-screen" style={{ backgroundImage: `url(${src})` }} role="img" aria-label={label} />
     </div>
+  );
+}
+
+/* ---------- journey tree (work experience only) ---------- */
+function Connector({ from, to }) {
+  // centres of each node as a % of the row width
+  const xs = (n) => Array.from({ length: n }, (_, i) => ((i + 0.5) / n) * 100);
+  const top = xs(from), bottom = xs(to);
+  const links = from === 1 || to === 1
+    ? top.flatMap((a) => bottom.map((b) => [a, b]))
+    : top.map((a, i) => [a, bottom[Math.min(i, to - 1)]]);
+  return (
+    <div className="connector" aria-hidden="true">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+        {links.map(([a, b]) => (
+          <path key={`${a}-${b}`} d={`M${a} 0 C${a} 55, ${b} 45, ${b} 100`} vectorEffect="non-scaling-stroke" />
+        ))}
+      </svg>
+      {top.map((x) => <span key={`t${x}`} className="knot" style={{ left: `${x}%`, top: 0 }} />)}
+      {bottom.map((x) => <span key={`b${x}`} className="knot" style={{ left: `${x}%`, top: '100%' }} />)}
+    </div>
+  );
+}
+
+function JobNode({ job, current }) {
+  return (
+    <article className={current ? 'node node-current' : 'node'}>
+      <div className="node-head">
+        <span className="node-icon"><Icon name={job.icon} size={16} /></span>
+        <h3>{job.role}</h3>
+        <i className="live" />
+      </div>
+      <p className="node-date">{job.dates}</p>
+      <p className="node-text">{job.summary}</p>
+      <div className="node-chips">
+        <span className="chip-co"><Icon name="code" size={12} />{job.company}</span>
+        {job.tags.map((t, i) => <span key={t} className={`chip-tag t${i % 3}`}><b>≡</b>{t}</span>)}
+      </div>
+    </article>
+  );
+}
+
+function Journey() {
+  if (!experience.length) return null;
+  const rows = [];
+  experience.forEach((job) => {
+    const last = rows[rows.length - 1];
+    if (last && last.row === job.row) last.jobs.push(job);
+    else rows.push({ row: job.row, jobs: [job] });
+  });
+  return (
+    <section id="journey" className="section">
+      <div className="center-head">
+        <Chip>My Journey</Chip>
+        <h2 className="reveal">Where I've Worked</h2>
+      </div>
+      <div className="journey reveal">
+        <div className="journey-top">
+          <p className="journey-brand">my<b>{'{journey}'}</b></p>
+          {profile.cv && (
+            <a href={profile.cv} download className="journey-cv"><Icon name="download" size={15} />Download CV</a>
+          )}
+        </div>
+        <div className="journey-pills">
+          <span className="jp"><Icon name="lead" size={15} />Work experience</span>
+          <span className="jp jp-live"><Icon name="bolt" size={14} />Open to work</span>
+        </div>
+        <div className="tree">
+          {rows.map((r, i) => (
+            <div key={r.row} className="tree-step">
+              {i > 0 && <Connector from={rows[i - 1].jobs.length} to={r.jobs.length} />}
+              <div className={`tree-row cols-${r.jobs.length}`}>
+                {r.jobs.map((job) => (
+                  <JobNode key={job.company} job={job} current={job.tags.includes('Current')} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="journey-note">Full details, tools and education are in my CV.</p>
+      </div>
+    </section>
   );
 }
 
@@ -333,6 +425,7 @@ function Contact() {
       <div className="contact-links reveal">
         {profile.linkedin && <a href={profile.linkedin} target="_blank" rel="noreferrer"><Icon name="linkedin" size={16} /> LinkedIn</a>}
         {profile.github && <a href={profile.github} target="_blank" rel="noreferrer"><Icon name="github" size={16} /> GitHub</a>}
+        {profile.cv && <a href={profile.cv} download><Icon name="download" size={16} /> Download CV</a>}
       </div>
       <footer>© {new Date().getFullYear()} {profile.name}</footer>
     </section>
@@ -347,6 +440,7 @@ export default function App() {
       <main>
         <Hero />
         <About />
+        <Journey />
         <Work />
         <UIUX />
         <Logos />

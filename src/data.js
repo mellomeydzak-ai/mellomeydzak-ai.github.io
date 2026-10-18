@@ -12,59 +12,124 @@ export const profile = {
   heroTitle: 'Web, UI/UX & Brand Design',
   heroTags: ['Web design', 'UI/UX', 'Branding'], // little floating pills around the photo
   intro:
-    'With a BSc and BSc Honours in Information Technology, I design and build clean, fast websites, from WordPress builds to React apps, and lead projects from the first sketch to launch.',
+    'With a BSc and BSc Honours in Information Technology, I work across web development, UI/UX, graphic design, digital marketing and AI-enabled workflows, and lead projects from the first sketch to launch.',
   about:
     'I create thoughtful digital experiences that connect strategy, usability and visual clarity.',
   // shown in the About section
   education: [
     { degree: 'BSc Honours in Information Technology', note: 'Completed' },
-    { degree: 'BSc in Information Technology', note: 'Graduated' },
+    { degree: 'BSc in Information Technology', note: 'Richfield · 2021–2024' },
   ],
   email: 'mellomeydzak@gmail.com',
   linkedin: 'https://www.linkedin.com/in/mellomey-dzak-0a8256280',
   github: 'https://github.com/mellomeydzak-ai',
-  cv: '', // optional: put cv.pdf in /public and set this to 'cv.pdf'
+  // The downloadable CV. Edit cv/cv.html, then run `npm run cv` to rebuild the PDF.
+  cv: 'Mellomey-Dzaklidzie-CV.pdf',
   photo: 'me.jpg',
   cutout: 'me-cut.png', // same photo with the background removed, used in the hero arch
 };
 
-// Numbers in the hero and About cards. Only put true numbers here.
+// Hero card and the two number cards in About. Only put true numbers here (these are from the CV).
+export const heroStat = { value: '3+', label: 'Years designing & building' };
 export const stats = [
-  { value: '4+', label: 'Live websites designed & built' },
-  { value: '5', label: 'Disciplines, from brand to code' },
+  { value: '6', label: 'Industrial websites managed' },
+  { value: '70%', label: 'Up to 70% higher click-through on paid ads' },
 ];
 
-// icon: one of 'code' | 'wordpress' | 'design' | 'ai' | 'lead'
+// The "My Journey" tree: work experience only, newest first.
+// row: jobs with the same row number sit side by side (they overlapped in time).
+// icon: 'code' | 'design' | 'chart' | 'wordpress' | 'lead'
+export const experience = [
+  {
+    row: 1,
+    role: 'WordPress Developer · Digital Project Manager · UI/UX Designer',
+    company: 'Bezaleel Media',
+    dates: 'Aug 2025 – Present',
+    icon: 'code',
+    tags: ['Current'],
+    summary: 'Manage six industrial websites and lead digital projects from requirements to delivery, using AI agents with human QA.',
+  },
+  {
+    row: 2,
+    role: 'Graphic Designer & Paid Ads Specialist',
+    company: 'Lonja Beauty Studio',
+    dates: 'Jan 2025 – May 2025',
+    icon: 'chart',
+    tags: ['Meta & TikTok', '+70% CTR'],
+    summary: 'Social and paid-campaign creative that reached up to 70% higher click-through rates.',
+  },
+  {
+    row: 2,
+    role: 'WordPress Developer',
+    company: 'Kayailees Mobile Florist',
+    dates: 'Feb 2025',
+    icon: 'wordpress',
+    tags: ['Freelance'],
+    summary: 'Mobile-first WordPress site with product listings and booking.',
+  },
+  {
+    row: 3,
+    role: 'Graphic Designer · WordPress Developer · Business Analyst',
+    company: 'Paul-R Trade and Technologies',
+    dates: 'Nov 2024 – Mar 2025',
+    icon: 'lead',
+    tags: ['WooCommerce', 'E-commerce'],
+    summary: 'Launched a complete WooCommerce store with secure payments, brand assets and SEO.',
+  },
+  {
+    row: 4,
+    role: 'Graphic Designer',
+    company: 'Jona & Leo Designs',
+    dates: 'Jul 2023 – Oct 2024',
+    icon: 'design',
+    tags: ['Where it started'],
+    summary: 'Campaign graphics, layouts and UI assets across multiple brands.',
+  },
+];
+
+// Skills / services cards. icon: 'code' | 'wordpress' | 'design' | 'ai' | 'lead' | 'chart' | 'flow'
 export const skills = [
   {
     icon: 'code',
     title: 'Frontend Development',
     text: 'Responsive, accessible interfaces that load fast and feel smooth on any screen.',
-    tags: ['React', 'JavaScript', 'HTML5', 'CSS3'],
+    tags: ['React.js', 'Preact', 'JavaScript', 'HTML', 'CSS'],
   },
   {
     icon: 'wordpress',
-    title: 'WordPress & PHP',
-    text: 'Custom themes, plugins and easy-to-edit sites that clients can run themselves.',
-    tags: ['WordPress', 'PHP', 'Custom Themes'],
+    title: 'WordPress & E-commerce',
+    text: 'Custom themes, plugins and WooCommerce stores, with performance and security looked after.',
+    tags: ['WordPress', 'WooCommerce', 'PHP', 'MySQL', 'Supabase'],
   },
   {
     icon: 'design',
     title: 'UI/UX & Graphic Design',
-    text: 'User-centred layouts, design systems and brand visuals, from wireframe to final pixel.',
-    tags: ['UI/UX Design', 'Graphic Design'],
+    text: 'User-centred layouts, brand identities and campaign visuals, from wireframe to final pixel.',
+    tags: ['Figma', 'Photoshop', 'Illustrator', 'InDesign', 'Canva'],
   },
   {
     icon: 'ai',
-    title: 'AI-Assisted Development & Prompt Engineering',
-    text: 'Using AI tools like Claude Code to build faster, while checking every output in code.',
-    tags: ['Prompt Engineering', 'Claude Code', 'LLM Integration'],
+    title: 'AI-Assisted Development',
+    text: 'AI agents as working systems for building, research and content, with human review before anything ships.',
+    tags: ['Claude Code', 'Claude', 'ChatGPT', 'Gemini', 'Prompt design'],
+  },
+  {
+    icon: 'chart',
+    title: 'Digital Marketing & SEO',
+    text: 'Paid social campaigns and SEO structure that turn visitors into leads.',
+    tags: ['Meta Ads', 'TikTok Ads', 'SEO', 'Campaign reporting'],
+  },
+  {
+    icon: 'flow',
+    title: 'Automation & Workflows',
+    text: 'Reusable systems that save teams time, from prompt libraries to no-code automations.',
+    tags: ['n8n', 'Make', 'Zapier', 'Airtable', 'Notion', 'GitHub'],
   },
   {
     icon: 'lead',
-    title: 'Project Leadership & Management',
-    text: 'Planning, timelines and clear communication that keep teams and clients aligned.',
-    tags: ['Project Lead', 'Project Management'],
+    title: 'Project Management & Analysis',
+    text: 'Requirements, planning, QA and stakeholder reviews that keep teams and clients aligned.',
+    tags: ['Project Management', 'Business Analysis', 'QA'],
   },
 ];
 

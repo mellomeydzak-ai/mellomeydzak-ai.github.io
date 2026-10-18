@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "shot": "sh scripts/screenshot.sh"
+    "shot": "sh scripts/screenshot.sh",
+    "cv": "sh scripts/cv.sh"
   },
   "dependencies": {
     "react": "^18.3.1",

@@ -288,6 +288,87 @@ h1 { font-size: clamp(40px, 5.2vw, 68px); font-weight: 600; max-width: 470px; te
 }
 .logo-tile figcaption { font-size: 12px; font-weight: 500; color: var(--ink); }
 
+/* ───────── journey tree (styled after the task-flow reference) ───────── */
+.journey {
+  --node: rgba(255, 255, 255, 0.045);
+  --wire: rgba(143, 201, 185, 0.55);
+  --mint: #4ee0a8;
+  max-width: 980px; margin: 0 auto; padding: 26px clamp(16px, 3vw, 34px) 34px;
+  border-radius: 32px; color: #fff;
+  background:
+    radial-gradient(60% 35% at 50% 38%, rgba(78, 224, 168, 0.12), transparent 70%),
+    radial-gradient(80% 50% at 50% 0%, rgba(79, 148, 134, 0.25), transparent 70%),
+    linear-gradient(180deg, #13201d, #0b1513);
+  box-shadow: 0 40px 80px rgba(10, 34, 30, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.journey-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.journey-brand { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; color: #dfe9e5; }
+.journey-brand b { font-weight: 500; color: var(--mint); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 19px; }
+.journey-cv {
+  display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13.5px; font-weight: 600; transition: background 0.25s;
+}
+.journey-cv:hover { background: rgba(255, 255, 255, 0.14); }
+.journey-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+.jp {
+  display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px; border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07); font-size: 14px; font-weight: 500;
+}
+.jp svg { color: var(--mint); }
+.jp-live { background: rgba(200, 164, 90, 0.16); color: #f1dca9; }
+.jp-live svg { color: var(--gold); }
+
+.tree-row { display: grid; gap: 22px; justify-items: center; }
+.tree-row.cols-1 { grid-template-columns: 1fr; }
+.tree-row.cols-2 { grid-template-columns: 1fr 1fr; }
+.tree-row.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.connector { position: relative; height: 64px; }
+.connector svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.connector path { fill: none; stroke: var(--wire); stroke-width: 1.6; }
+.knot {
+  position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
+  background: #0f1a18; border: 1.6px solid var(--wire);
+}
+
+.node {
+  position: relative; width: 100%; max-width: 400px; padding: 16px 18px 16px; border-radius: 18px;
+  background: var(--node); border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.5s var(--ease), border-color 0.4s, background 0.4s;
+}
+.node:hover { transform: translateY(-4px); border-color: rgba(143, 201, 185, 0.4); background: rgba(255, 255, 255, 0.07); }
+.node-head { display: flex; align-items: flex-start; gap: 11px; }
+.node-icon {
+  width: 30px; height: 30px; border-radius: 9px; flex: none; display: grid; place-items: center;
+  background: rgba(200, 164, 90, 0.2); color: var(--gold);
+}
+.node h3 { font-family: var(--font); font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; flex: 1; padding-top: 4px; }
+.live { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); flex: none; margin-top: 10px; box-shadow: 0 0 0 3px rgba(78, 224, 168, 0.18); }
+.node-date { font-size: 12.5px; color: rgba(255, 255, 255, 0.45); margin: 8px 0 6px 41px; }
+.node-text { font-size: 13.5px; color: rgba(255, 255, 255, 0.72); line-height: 1.5; margin: 0 0 12px 41px; }
+.node-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-left: 41px; }
+.node-chips span {
+  display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 9px;
+  font-size: 12.5px; font-weight: 500; background: rgba(0, 0, 0, 0.28); border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.chip-co svg { color: rgba(255, 255, 255, 0.6); }
+.chip-tag b { font-weight: 700; }
+.chip-tag.t0 { color: #b9a7ff; border-color: rgba(185, 167, 255, 0.25) !important; }
+.chip-tag.t1 { color: var(--mint); border-color: rgba(78, 224, 168, 0.25) !important; }
+.chip-tag.t2 { color: #ff8fb8; border-color: rgba(255, 143, 184, 0.25) !important; }
+
+/* the current role glows, like the active task in the reference */
+.node-current {
+  max-width: 440px;
+  background: linear-gradient(160deg, rgba(78, 224, 168, 0.16), rgba(78, 224, 168, 0.04));
+  border-color: rgba(78, 224, 168, 0.45);
+  box-shadow: 0 0 0 4px rgba(78, 224, 168, 0.06), 0 20px 50px rgba(78, 224, 168, 0.12);
+}
+.node-current .node-icon { background: var(--mint); color: #0b1513; }
+.node-current .chip-tag.t0 { color: var(--mint); border-color: rgba(78, 224, 168, 0.35) !important; }
+.journey-note { text-align: center; font-size: 13px; color: rgba(255, 255, 255, 0.45); margin-top: 28px; }
+
 /* ───────── services (dark green block) ───────── */
 .services {
   margin-top: 90px; padding: 100px clamp(20px, 5vw, 64px);
@@ -298,7 +379,7 @@ h1 { font-size: clamp(40px, 5.2vw, 68px); font-weight: 600; max-width: 470px; te
 }
 .services .chip { color: var(--g200); }
 .services .chip span { background: var(--gold); box-shadow: 0 0 0 4px rgba(200, 164, 90, 0.2); }
-.service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.service-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .service {
   border-radius: var(--r); padding: 28px; display: flex; flex-direction: column; gap: 12px;
   background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1);
@@ -407,6 +488,17 @@ footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid rgba(255, 25
   .phone-link .phone, .phone-link:nth-child(2) .phone { width: 31vw; max-width: 110px; }
   .phone-link span { font-size: 11px; text-align: center; }
   .services { margin-top: 64px; padding: 70px 16px; }
+  .journey { border-radius: 24px; padding: 20px 14px 26px; }
+  .journey-brand { font-size: 18px; }
+  .journey-brand b { font-size: 16px; }
+  .tree-row.cols-2, .tree-row.cols-3 { grid-template-columns: 1fr; gap: 34px; }
+  .tree-row .node + .node::before {
+    content: ''; position: absolute; left: 50%; top: -34px; height: 34px; width: 1.6px; background: var(--wire);
+  }
+  .connector { height: 34px; }
+  .connector svg, .connector .knot { display: none; }
+  .connector::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1.6px; background: var(--wire); }
+  .node-date, .node-text, .node-chips { margin-left: 0; }
   .service-grid { grid-template-columns: 1fr; }
   .contact { padding: 70px 16px 24px; }
 }
