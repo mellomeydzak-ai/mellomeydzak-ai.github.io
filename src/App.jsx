@@ -42,6 +42,12 @@ const paths = {
     </>
   ),
   arrow: <path d="M7 17 17 7M8 7h9v9" />,
+  cap: (
+    <>
+      <path d="M2 9.5 12 5l10 4.5L12 14Z" />
+      <path d="M6 11.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.5M22 9.5V15" />
+    </>
+  ),
 };
 
 function Icon({ name, size = 22 }) {
@@ -161,6 +167,19 @@ function About() {
             <small>{s.label}</small><b>{s.value}</b>
           </div>
         ))}
+        {profile.education?.length > 0 && (
+          <div className="tile tile-edu reveal" style={{ '--d': '120ms' }}>
+            <span className="edu-icon"><Icon name="cap" size={22} /></span>
+            <div>
+              <small>Education</small>
+              <ul>
+                {profile.education.map((e) => (
+                  <li key={e.degree}><b>{e.degree}</b>{e.note && <em>{e.note}</em>}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
         <div className="tile tile-links reveal" style={{ '--d': '160ms' }}>
           <small>Find me online</small>
           <div className="socials">
@@ -263,12 +282,13 @@ function Logos() {
   return (
     <section id="brands" className="section">
       <div className="center-head">
-        <Chip>Brand Identity</Chip>
+        <Chip>Brand Identity &amp; Graphic Design</Chip>
         <h2 className="reveal">Logos I've Designed</h2>
       </div>
       <div className="logo-grid">
         {logos.map((l, i) => (
-          <figure key={l.file} className="logo-tile reveal" style={{ '--d': `${i * 60}ms`, background: l.bg || '#fff' }}>
+          <figure key={l.file} className={l.poster ? 'logo-tile poster reveal' : 'logo-tile reveal'}
+            style={{ '--d': `${(i % 4) * 60}ms`, background: l.bg || '#fff' }}>
             <img src={l.file} alt={`${l.name} logo`} loading="lazy" />
             <figcaption>{l.name}</figcaption>
           </figure>

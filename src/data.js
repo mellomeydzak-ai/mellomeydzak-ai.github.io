@@ -12,9 +12,14 @@ export const profile = {
   heroTitle: 'Web, UI/UX & Brand Design',
   heroTags: ['Web design', 'UI/UX', 'Branding'], // little floating pills around the photo
   intro:
-    'I design and build clean, fast websites, from WordPress builds to React apps, and lead projects from the first sketch to launch.',
+    'With a BSc and BSc Honours in Information Technology, I design and build clean, fast websites, from WordPress builds to React apps, and lead projects from the first sketch to launch.',
   about:
     'I create thoughtful digital experiences that connect strategy, usability and visual clarity.',
+  // shown in the About section
+  education: [
+    { degree: 'BSc Honours in Information Technology', note: 'Completed' },
+    { degree: 'BSc in Information Technology', note: 'Graduated' },
+  ],
   email: 'mellomeydzak@gmail.com',
   linkedin: 'https://www.linkedin.com/in/mellomey-dzak-0a8256280',
   github: 'https://github.com/mellomeydzak-ai',
@@ -105,6 +110,21 @@ export const projects = [
 // Logos you designed. Put the image files in /public/logos and list them here.
 // bg: the tile colour behind the logo (use a dark one for white logos).
 // The "Brand Identity" section stays hidden until at least one logo is listed.
+// poster: true makes a flyer/poster tile that fills a bigger square.
 export const logos = [
-  // { name: 'Client name', file: 'logos/client.png', bg: '#ffffff' },
+  { name: 'Bezaleel Media · Photography studio flyer', file: 'logos/bezaleel-flyer.jpg', poster: true },
+  { name: 'Queen', file: 'logos/queen.jpg', bg: '#ffffff' },
+  { name: 'Fulcrum', file: 'logos/fulcrum.jpg', bg: '#ffffff' },
+  { name: 'PR Trade & Technologies', file: 'logos/pr-trade.jpg', bg: '#000000' },
+  { name: 'Devtech Designs', file: 'logos/devtech.jpg', bg: '#ffffff' },
+  { name: 'Bell\'s Group', file: 'logos/bells-group.jpg', bg: '#ffffff' },
+  { name: 'Kayailees Event Decor', file: 'logos/kayailees.jpg', bg: '#fff9fb' },
+  { name: 'Unice Fresh Juice', file: 'logos/unice.jpg', bg: '#ffffff' },
+  { name: 'Jona & Leo Designs', file: 'logos/jona-leo.jpg', bg: '#ffffff' },
+  { name: 'MGK Construction', file: 'logos/mgk.jpg', bg: '#ffffff' },
+  { name: 'NIR', file: 'logos/nir.jpg', bg: '#ffffff' },
+  { name: 'Aero Plant', file: 'logos/aero-plant.jpg', bg: '#ffffff' },
+  { name: 'Oracle Fish', file: 'logos/oracle-fish.jpg', bg: '#ffffff' },
+  { name: 'Deer', file: 'logos/deer.jpg', bg: '#ffffff' },
+  { name: 'Bells Real Estate Agency', file: 'logos/bells-real-estate.jpg', bg: '#ffffff' },
 ];
