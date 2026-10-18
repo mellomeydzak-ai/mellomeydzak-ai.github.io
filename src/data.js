@@ -11,7 +11,7 @@ export const profile = {
   intro:
     'I design and build clean, fast websites, from WordPress builds to React apps, and lead projects from the first sketch to launch.',
   email: 'mellomeydzak@gmail.com',
-  linkedin: '', // TODO: paste your LinkedIn URL here
+  linkedin: 'https://www.linkedin.com/in/mellomey-dzak-0a8256280',
   github: 'https://github.com/mellomeydzak-ai',
   cv: '', // optional: put cv.pdf in /public and set this to 'cv.pdf'
   photo: 'me.jpg',
@@ -56,25 +56,32 @@ export const skills = [
 // Projects with an empty url are hidden on the site until you fill them in.
 export const projects = [
   {
+    title: 'Business Flex',
+    url: 'https://business-flex.co.za/',
+    role: 'Design and technology studio site, custom-built with an AI chat assistant',
+    tags: ['JavaScript', 'Vite', 'UI/UX', 'AI'],
+    image: 'projects/businessflex.jpg',
+  },
+  {
+    title: 'Bezaleel Media',
+    url: 'https://bezaleel.co.za/',
+    role: 'Digital marketing agency site, branding, design and WordPress build',
+    tags: ['WordPress', 'Elementor', 'Branding'],
+    image: 'projects/bezaleel.jpg',
+  },
+  {
+    title: 'Goscor Cleaning Equipment',
+    url: 'https://goscorcleaning.co.za/',
+    role: 'Industrial equipment supplier site with product catalogue and quote requests',
+    tags: ['WordPress', 'WooCommerce', 'PHP'],
+    image: 'projects/goscor.jpg',
+  },
+  {
     title: 'Casino Bonus Scraper',
     url: 'https://mellomeydzak-ai.github.io/casino-bonus-scraper/',
     code: 'https://github.com/mellomeydzak-ai/casino-bonus-scraper',
     role: 'Node.js scraper + AI extraction + mobile-friendly results page',
     tags: ['Node.js', 'LLM', 'GitHub Pages'],
     image: 'projects/casino.jpg',
-  },
-  {
-    title: 'Your Website #2', // TODO: replace with a real project
-    url: '',
-    role: 'Designed and built in WordPress',
-    tags: ['WordPress', 'PHP', 'UI/UX'],
-    image: '',
-  },
-  {
-    title: 'Your Website #3', // TODO: replace with a real project
-    url: '',
-    role: 'React web app, design and development',
-    tags: ['React', 'JavaScript', 'CSS'],
-    image: '',
   },
 ];
