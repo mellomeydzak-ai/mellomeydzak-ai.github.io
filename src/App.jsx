@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { profile, skills, projects } from './data.js';
+import { profile, stats, skills, projects, logos } from './data.js';
 
 /* ---------- small inline icons (no icon library needed) ---------- */
 const paths = {
@@ -68,13 +68,18 @@ function useReveal() {
   }, []);
 }
 
-function SectionTitle({ eyebrow, bold, light }) {
+/* dark pill button with a round arrow, like the reference */
+function PillButton({ href, children, light, ...rest }) {
   return (
-    <div className="section-title reveal">
-      <p className="eyebrow">{eyebrow}</p>
-      <h2><strong>{bold}</strong> <span>{light}</span></h2>
-    </div>
+    <a href={href} className={light ? 'pill pill-light' : 'pill'} {...rest}>
+      <span>{children}</span>
+      <i><Icon name="arrow" size={15} /></i>
+    </a>
   );
+}
+
+function Chip({ children }) {
+  return <p className="chip reveal"><span />{children}</p>;
 }
 
 /* ---------- sections ---------- */
@@ -83,13 +88,16 @@ function Nav() {
   const close = () => setOpen(false);
   return (
     <header className="nav">
-      <a href="#top" className="logo">{profile.firstName.toUpperCase()}</a>
+      <a href="#top" className="logo">
+        <span className="logo-mark">{profile.firstName[0]}</span>{profile.firstName}
+      </a>
       <nav className={open ? 'links open' : 'links'}>
-        <a href="#skills" onClick={close}>Skills</a>
+        <a href="#about" onClick={close}>About</a>
         <a href="#work" onClick={close}>Work</a>
-        <a href="#contact" onClick={close}>Contact</a>
+        <a href="#uiux" onClick={close}>UI/UX</a>
+        <a href="#services" onClick={close}>Services</a>
       </nav>
-      <a href="#contact" className="btn btn-outline nav-cta">Hire Me</a>
+      <PillButton href="#contact">Get In Touch</PillButton>
       <button className="menu" aria-label="Menu" aria-expanded={open} onClick={() => setOpen(!open)}>
         <span /><span />
       </button>
@@ -97,88 +105,74 @@ function Nav() {
   );
 }
 
-function Socials() {
-  const items = [
-    profile.linkedin && { href: profile.linkedin, icon: 'linkedin', label: 'LinkedIn' },
-    profile.github && { href: profile.github, icon: 'github', label: 'GitHub' },
-    { href: `mailto:${profile.email}`, icon: 'mail', label: 'Email' },
-  ].filter(Boolean);
-  return (
-    <div className="socials">
-      {items.map((s) => (
-        <a key={s.label} href={s.href} aria-label={s.label} target="_blank" rel="noreferrer">
-          <Icon name={s.icon} size={16} />
-        </a>
-      ))}
-    </div>
-  );
-}
-
 function Hero() {
+  const [a, b, c] = profile.heroTags;
   return (
     <section className="hero" id="top">
-      <div className="hero-copy">
-        <p className="eyebrow reveal">Hi, I'm {profile.name}</p>
-        <h1 className="reveal">
-          <strong>{profile.titleBold}</strong>
-          <span>{profile.titleLight}</span>
-        </h1>
-        <p className="lead reveal">{profile.intro}</p>
-        <div className="actions reveal">
-          <a href="#work" className="btn btn-primary">View My Work</a>
-          {profile.cv && <a href={profile.cv} className="btn btn-outline" download>Download CV</a>}
+      <p className="hero-word" aria-hidden="true">{profile.heroWord}</p>
+
+      <div className="arch-wrap">
+        <div className="arch">
+          <img src={profile.cutout || profile.photo} alt={profile.name} />
         </div>
-        <div className="reveal"><Socials /></div>
+        {a && <span className="tag-pill tp-a">{a}</span>}
+        {b && <span className="tag-pill tp-b">{b}</span>}
+        {c && <span className="tag-pill tp-c">{c}</span>}
       </div>
 
-      <div className="hero-visual reveal">
-        <div className="sun" />
-        <img className="portrait" src={profile.photo} alt={profile.name} />
-
-        <div className="float-card fc-chart">
-          <svg viewBox="0 0 90 34" width="90" height="34" aria-hidden="true">
-            <path d="M2 28 14 14l8 10 10-16 9 12 10-14 9 9 10-12 16-2" fill="none"
-              stroke="#e8364f" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+      <div className="hero-bottom">
+        <div className="hero-copy">
+          <p className="hello reveal">Hey, I'm {profile.firstName}.</p>
+          <h1 className="reveal">{profile.heroTitle}</h1>
         </div>
-
-        <div className="float-card fc-a">
-          <span className="dot dot-coral"><Icon name="code" size={13} /></span>
-          <div><small>Frontend</small><b>React · JS</b></div>
-        </div>
-
-        <div className="float-card fc-b">
-          <span className="dot dot-blue"><Icon name="wordpress" size={13} /></span>
-          <div><small>Backend</small><b>WordPress · PHP</b></div>
-        </div>
-
-        <div className="float-card fc-c">
-          <span className="dot dot-purple"><Icon name="ai" size={13} /></span>
-          <div><small>Also</small><b>UI/UX · AI · Lead</b></div>
-        </div>
+        {stats[0] && (
+          <div className="stat-card reveal">
+            <small>{stats[0].label}</small>
+            <b>{stats[0].value}</b>
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-function Skills() {
+function About() {
+  const tools = [...new Set(skills.flatMap((s) => s.tags))].slice(0, 6);
   return (
-    <section id="skills" className="section">
-      <SectionTitle eyebrow="What I do" bold="Skills &" light="Expertise" />
-      <div className="skills-grid">
-        {skills.map((s, i) => (
-          <article key={s.title} className="card skill-card reveal" style={{ '--d': `${i * 70}ms` }}>
-            <span className={`skill-icon i-${s.icon}`}><Icon name={s.icon} /></span>
-            <h3>{s.title}</h3>
-            <p>{s.text}</p>
-            <ul className="tags">{s.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-          </article>
+    <section id="about" className="section about">
+      <div className="about-head">
+        <Chip>About Me</Chip>
+        <div>
+          <h2 className="reveal">{profile.about}</h2>
+          <p className="lead reveal">{profile.intro}</p>
+          <div className="reveal actions">
+            <PillButton href="#contact">Get In Touch</PillButton>
+            {profile.cv && <a href={profile.cv} className="text-link" download>Download CV</a>}
+          </div>
+        </div>
+      </div>
+
+      <div className="bento">
+        <div className="bento-photo reveal">
+          <img src={profile.photo} alt="" />
+        </div>
+        {stats.map((s, i) => (
+          <div key={s.label} className="tile tile-stat reveal" style={{ '--d': `${i * 80}ms` }}>
+            <small>{s.label}</small><b>{s.value}</b>
+          </div>
         ))}
-        <a href="#contact" className="card skill-card cta-card reveal" style={{ '--d': `${skills.length * 70}ms` }}>
-          <h3>Open to new roles & projects</h3>
-          <p>Looking for someone who can design, build and lead? Let's talk.</p>
-          <span className="view">Get in touch <Icon name="arrow" size={15} /></span>
-        </a>
+        <div className="tile tile-links reveal" style={{ '--d': '160ms' }}>
+          <small>Find me online</small>
+          <div className="socials">
+            {profile.linkedin && <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Icon name="linkedin" size={18} /></a>}
+            {profile.github && <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Icon name="github" size={18} /></a>}
+            <a href={`mailto:${profile.email}`} aria-label="Email"><Icon name="mail" size={18} /></a>
+          </div>
+        </div>
+        <div className="tile tile-tools reveal" style={{ '--d': '240ms' }}>
+          <h3>Strategic thinking, clean execution</h3>
+          <ul className="tags">{tools.map((t) => <li key={t}>{t}</li>)}</ul>
+        </div>
       </div>
     </section>
   );
@@ -188,42 +182,124 @@ function hostOf(url) {
   try { return new URL(url).host; } catch { return 'your-site.com'; }
 }
 
-function ProjectCard({ p, i }) {
-  const Wrapper = p.url ? 'a' : 'div';
-  const linkProps = p.url ? { href: p.url, target: '_blank', rel: 'noreferrer' } : {};
+function Browser({ p }) {
   return (
-    <Wrapper className="card project-card reveal" style={{ '--d': `${i * 90}ms` }} {...linkProps}>
-      <div className="mockup">
-        <div className="browser-bar">
-          <i /><i /><i />
-          <span className="address">{hostOf(p.url)}</span>
-        </div>
-        {p.image ? (
-          <div className="screen" style={{ backgroundImage: `url(${p.image})` }} role="img"
-            aria-label={`Screenshot of ${p.title}`} />
-        ) : (
-          <div className="screen placeholder" aria-hidden="true">
-            <div className="ph-nav" /><div className="ph-hero" />
-            <div className="ph-row"><span /><span /><span /></div>
-          </div>
-        )}
-      </div>
-      <div className="project-info">
-        <h3>{p.title}</h3>
-        <p>{p.role}</p>
-        <ul className="tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-        {p.url && <span className="view">View live <Icon name="arrow" size={15} /></span>}
-      </div>
-    </Wrapper>
+    <div className="browser">
+      <div className="browser-bar"><i /><i /><i /><span>{hostOf(p.url)}</span></div>
+      <div className="screen" style={{ backgroundImage: `url(${p.image})` }} role="img"
+        aria-label={`Screenshot of ${p.title}`} />
+    </div>
+  );
+}
+
+function Phone({ src, label }) {
+  return (
+    <div className="phone">
+      <div className="phone-screen" style={{ backgroundImage: `url(${src})` }} role="img" aria-label={label} />
+    </div>
   );
 }
 
 function Work() {
+  const list = projects.filter((p) => p.url);
   return (
     <section id="work" className="section">
-      <SectionTitle eyebrow="Portfolio" bold="Selected" light="Work" />
-      <div className="work-grid">
-        {projects.filter((p) => p.url).map((p, i) => <ProjectCard key={p.title} p={p} i={i} />)}
+      <div className="center-head">
+        <Chip>My Portfolio</Chip>
+        <h2 className="reveal">Websites I've Designed<br />&amp; Built</h2>
+      </div>
+      <div className="work-list">
+        {list.map((p, i) => (
+          <article key={p.title} className="work-card reveal">
+            <div className="work-info">
+              <span className="num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{p.title}</h3>
+              <p>{p.role}</p>
+              <ul className="tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+              <div className="work-actions">
+                <PillButton href={p.url} target="_blank" rel="noreferrer">Visit Site</PillButton>
+                {p.code && <a className="text-link" href={p.code} target="_blank" rel="noreferrer">View code</a>}
+              </div>
+            </div>
+            <a className="work-visual" href={p.url} target="_blank" rel="noreferrer" aria-label={`Open ${p.title}`}>
+              {p.image && <Browser p={p} />}
+              {p.mobile && <Phone src={p.mobile} label={`${p.title} on mobile`} />}
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function UIUX() {
+  const phones = projects.filter((p) => p.mobile);
+  if (!phones.length) return null;
+  const steps = ['Discover', 'Wireframe', 'Visual design', 'Build', 'Launch'];
+  return (
+    <section id="uiux" className="section uiux reveal">
+      <div className="uiux-copy">
+        <Chip>UI/UX Design</Chip>
+        <h2>Interfaces that work on every screen</h2>
+        <p>Every site I make is planned around the user first: clear layouts, readable type and calls to action that are easy to find, then tested on mobile and desktop.</p>
+        <ol className="steps">
+          {steps.map((s, i) => <li key={s}><b>{String(i + 1).padStart(2, '0')}</b>{s}</li>)}
+        </ol>
+      </div>
+      <div className="phones">
+        {phones.slice(0, 3).map((p) => (
+          <a key={p.title} href={p.url} target="_blank" rel="noreferrer" className="phone-link">
+            <Phone src={p.mobile} label={`${p.title} mobile design`} />
+            <span>{p.title}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Logos() {
+  if (!logos.length) return null;
+  return (
+    <section id="brands" className="section">
+      <div className="center-head">
+        <Chip>Brand Identity</Chip>
+        <h2 className="reveal">Logos I've Designed</h2>
+      </div>
+      <div className="logo-grid">
+        {logos.map((l, i) => (
+          <figure key={l.file} className="logo-tile reveal" style={{ '--d': `${i * 60}ms`, background: l.bg || '#fff' }}>
+            <img src={l.file} alt={`${l.name} logo`} loading="lazy" />
+            <figcaption>{l.name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Services() {
+  return (
+    <section id="services" className="services">
+      <div className="center-head">
+        <Chip>Core Services</Chip>
+        <h2 className="reveal">Design Solutions Built<br />For Growth</h2>
+      </div>
+      <div className="service-grid">
+        {skills.map((s, i) => (
+          <article key={s.title} className={`service s-${i} reveal`} style={{ '--d': `${i * 70}ms` }}>
+            <span className="service-icon"><Icon name={s.icon} /></span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            <ul className="tags">{s.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+          </article>
+        ))}
+        <article className="service service-cta reveal" style={{ '--d': `${skills.length * 70}ms` }}>
+          <small>Open to new roles &amp; projects</small>
+          <h3>Let's Create Impact</h3>
+          <p>Looking for someone who can design, build and lead? Let's talk.</p>
+          <PillButton href="#contact" light>Start a Project</PillButton>
+        </article>
       </div>
     </section>
   );
@@ -231,30 +307,14 @@ function Work() {
 
 function Contact() {
   return (
-    <section id="contact" className="section contact">
-      <div className="card contact-card reveal">
-        <a href={`mailto:${profile.email}`} className="contact-row">
-          <span className="dot dot-blue"><Icon name="mail" size={15} /></span>
-          <div><small>Email</small><b>{profile.email}</b></div>
-        </a>
-        {profile.linkedin && (
-          <a href={profile.linkedin} target="_blank" rel="noreferrer" className="contact-row">
-            <span className="dot dot-purple"><Icon name="linkedin" size={15} /></span>
-            <div><small>LinkedIn</small><b>Connect with me</b></div>
-          </a>
-        )}
-        {profile.github && (
-          <a href={profile.github} target="_blank" rel="noreferrer" className="contact-row">
-            <span className="dot dot-coral"><Icon name="github" size={15} /></span>
-            <div><small>GitHub</small><b>{profile.github.replace('https://', '')}</b></div>
-          </a>
-        )}
+    <section id="contact" className="contact">
+      <h2 className="reveal">Let's work<br />together.</h2>
+      <a href={`mailto:${profile.email}`} className="contact-email reveal">{profile.email}</a>
+      <div className="contact-links reveal">
+        {profile.linkedin && <a href={profile.linkedin} target="_blank" rel="noreferrer"><Icon name="linkedin" size={16} /> LinkedIn</a>}
+        {profile.github && <a href={profile.github} target="_blank" rel="noreferrer"><Icon name="github" size={16} /> GitHub</a>}
       </div>
-      <div className="contact-copy reveal">
-        <h2><strong>Let's Work</strong> <span>Together</span></h2>
-        <p>Have a role or a project in mind? I'd love to hear about it.</p>
-        <a href={`mailto:${profile.email}`} className="btn btn-primary">Get In Touch</a>
-      </div>
+      <footer>© {new Date().getFullYear()} {profile.name}</footer>
     </section>
   );
 }
@@ -262,21 +322,17 @@ function Contact() {
 export default function App() {
   useReveal();
   return (
-    <>
-      <div className="blobs" aria-hidden="true">
-        <span className="b b1" /><span className="b b2" /><span className="b b3" /><span className="b b4" />
-        <span className="d d1" /><span className="d d2" /><span className="d d3" /><span className="d d4" />
-      </div>
-      <div className="frame">
-        <Nav />
-        <main>
-          <Hero />
-          <Skills />
-          <Work />
-          <Contact />
-        </main>
-        <footer>© {new Date().getFullYear()} {profile.name}</footer>
-      </div>
-    </>
+    <div className="page">
+      <Nav />
+      <main>
+        <Hero />
+        <About />
+        <Work />
+        <UIUX />
+        <Logos />
+        <Services />
+        <Contact />
+      </main>
+    </div>
   );
 }
